@@ -1,0 +1,77 @@
+#%RAML 0.8
+title: tryout
+version: v1
+baseUri: http://api.tryout.thoughtworks.com
+schemas:
+  - User: |
+      {
+        "$schema": "http://json-schema.org/draft-03/schema",
+        "type": "object",
+        "description": "Logic exam paper generate rule",
+        "properties": {
+          "id": {
+            "type": "string",
+            "required": true
+          },
+          "twid": {
+            "type": "string",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "required": true
+          },
+          "role": {
+            "type": "string",
+            "required": true
+          },
+          "base_office": {
+            "type": "string",
+            "required": true
+          },
+          "privilege": {
+            "type": "array",
+            "required": true,
+            "items": {
+              "office": "string"
+            }
+          }
+        }
+      }
+  - Users: |
+      {
+        "$schema": "http://json-schema.org/draft-03/schema",
+        "type": "array",
+        "description": "A collection of published templates of exam paper",
+        "items": {
+          "$ref": "User"
+        }
+      }
+/users:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            schema: Users
+  post:
+    body:
+      application/json:
+        schema: User
+    responses:
+      201:
+        body:
+          application/json:
+            schema: User
+  /{user-id}:
+    uriParameters:
+      user-id:
+        type: string
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              schema: User
+        404:
+

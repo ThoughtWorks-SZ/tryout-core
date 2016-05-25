@@ -1,0 +1,13 @@
+language: java
+
+jdk:
+  - oraclejdk8
+
+services:
+  - mysql
+
+before_script:
+  - mysql -uroot -e 'create database IF NOT EXISTS tryout_test;'
+  - mvn clean compile flyway:migrate
+  - mysql -uroot -Dtryout_test < src/main/resources/db/seed/init-tryout.sql
+  
