@@ -1,4 +1,16 @@
-create TABLE User(
-    ID CHAR(36) not null,
-    PRIMARY KEY (ID)
-);
+CREATE TABLE user (
+  id          VARCHAR(36) NOT NULL,
+  name        VARCHAR(64),
+  email       VARCHAR(128),
+  doj         TIMESTAMP DEFAULT '0000-00-00 00:00:00',
+  home_office VARCHAR(1024),
+  role        VARCHAR(16),
+  buddy_name  VARCHAR(64),
+  buddy_email VARCHAR(128),
+  created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT user_pk PRIMARY KEY (id)
+)
+  ENGINE = INNODB
+  DEFAULT CHARSET = utf8;
+
